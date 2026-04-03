@@ -1,103 +1,79 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Task Manager</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(to right, #007bff, #00c6ff);
-            margin: 0;
-            padding: 0;
-        }
+{% extends "base.html" %}
 
-        .container {
-            width: 60%;
-            margin: 50px auto;
-            background: #fff;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-        }
+{% block title %}My Tasks - Task Manager{% endblock %}
 
-        h2 {
-            text-align: center;
-            color: #007bff;
-        }
+{% block extra_css %}
+.add-btn {
+    display: block;
+    width: fit-content;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: 0.3s;
+}
 
-        .add-btn {
-            display: block;
-            width: fit-content;
-            margin: 20px auto;
-            padding: 10px 20px;
-            background: #007bff;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 6px;
-            transition: 0.3s;
-        }
+.add-btn:hover {
+    background: #0056b3;
+}
 
-        .add-btn:hover {
-            background: #0056b3;
-        }
+ul {
+    list-style: none;
+    padding: 0;
+}
 
-        ul {
-            list-style: none;
-            padding: 0;
-        }
+li {
+    background: #f8f9fa;
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: 0.3s;
+}
 
-        li {
-            background: #f8f9fa;
-            margin: 10px 0;
-            padding: 15px;
-            border-radius: 8px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: 0.3s;
-        }
+li:hover {
+    transform: scale(1.02);
+    background: #e9ecef;
+}
 
-        li:hover {
-            transform: scale(1.02);
-            background: #e9ecef;
-        }
+.task-title {
+    font-size: 18px;
+    font-weight: bold;
+}
 
-        .task-title {
-            font-size: 18px;
-            font-weight: bold;
-        }
+.actions a {
+    margin-left: 10px;
+    padding: 6px 12px;
+    text-decoration: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 14px;
+}
 
-        .actions a {
-            margin-left: 10px;
-            padding: 6px 12px;
-            text-decoration: none;
-            border-radius: 5px;
-            color: white;
-            font-size: 14px;
-        }
+.edit {
+    background: #28a745;
+}
 
-        .edit {
-            background: #28a745;
-        }
+.edit:hover {
+    background: #1e7e34;
+}
 
-        .edit:hover {
-            background: #1e7e34;
-        }
+.delete {
+    background: #dc3545;
+}
 
-        .delete {
-            background: #dc3545;
-        }
+.delete:hover {
+    background: #a71d2a;
+}
+{% endblock %}
 
-        .delete:hover {
-            background: #a71d2a;
-        }
+{% block h2 %}📝 My Tasks{% endblock %}
 
-    </style>
-</head>
-<body>
-
-    <div class="container">
-        <h2>📝 Task Manager</h2>
-
+{% block content %}
         <a href="/add" class="add-btn">+ Add Task</a>
 
         <ul>
@@ -111,7 +87,4 @@
             </li>
             {% endfor %}
         </ul>
-    </div>
-
-</body>
-</html>
+{% endblock %}
