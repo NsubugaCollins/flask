@@ -6,11 +6,11 @@ app = Flask(__name__)
 
 # Railway environment variables
 db = mysql.connector.connect(
-    host=os.getenv("MYSQLHOST") or "localhost",
-    user=os.getenv("MYSQLUSER") or "root",
-    password=os.getenv("MYSQLPASSWORD") or "collins123",
-    database=os.getenv("MYSQLDATABASE") or "taskdb",
-    port=int(os.getenv("MYSQLPORT") or 3306)
+    host=os.getenv("MYSQLHOST"),
+    user=os.getenv("MYSQLUSER"),
+    password=os.getenv("MYSQLPASSWORD"),
+    database=os.getenv("MYSQLDATABASE"),
+    port=int(os.getenv("MYSQLPORT"))
 )
 
 cursor = db.cursor()
