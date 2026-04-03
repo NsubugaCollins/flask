@@ -46,12 +46,9 @@
             border-radius: 12px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.2);
         }
-
-        
     </style>
 </head>
 <body>
-
     <div class="nav">
         <h1>📝 Task Manager</h1>
         {% if current_user.is_authenticated %}
@@ -68,10 +65,8 @@
     </div>
 
     <div class="container">
-        {% block main %}
         <h2 style="text-align: center; color: #007bff;">{% block h2 %}Task Manager{% endblock %}</h2>
         {% block content %}{% endblock %}
-        {% endblock %}
     </div>
 </body>
 </html>
