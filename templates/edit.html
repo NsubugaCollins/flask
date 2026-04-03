@@ -1,67 +1,83 @@
 {% extends "base.html" %}
 
 {% block title %}Edit Task - Task Manager{% endblock %}
-
-{% block extra_css %}
-.container {
-    width: 40% !important;
-    margin: 50px auto;
-}
-
-input[type="text"] {
-    width: 90%;
-    padding: 12px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    margin-bottom: 20px;
-    font-size: 16px;
-    outline: none;
-    transition: 0.3s;
-    box-sizing: border-box;
-}
-
-input[type="text"]:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 5px rgba(0,123,255,0.5);
-}
-
-button {
-    padding: 10px 20px;
-    background: #28a745;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: 0.3s;
-    font-size: 16px;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-button:hover {
-    background: #1e7e34;
-}
-
-.back-link {
-    display: block;
-    margin-top: 15px;
-    text-decoration: none;
-    color: #555;
-    font-size: 14px;
-}
-
-.back-link:hover {
-    color: #000;
-}
-{% endblock %}
-
-{% block h2 %}✏️ Edit Task{% endblock %}
+{% block icon %}edit{% endblock %}
+{% block h2 %}✏️ Update Task{% endblock %}
 
 {% block content %}
-        <form method="POST">
-            <input type="text" name="title" value="{{ task[1] }}" required>
-            <button type="submit">Update Task</button>
-        </form>
+<div class="row justify-content-center">
+    <div class="col-lg-8 col-xl-6">
+        <div class="alert alert-info mb-4">
+            <i class="fas fa-info-circle me-2"></i>
+            Task ID: <strong>#{{ task[0] }}</strong>
+        </div>
+        
+        <form method="POST" class="needs-validation" novalidate>
+            <div class="mb-4">
+                <label for="taskTitle" class="form-label text-white fs-5">
+                    <i class="fas fa-clipboard-list me-2"></i>Task Title
+                </label>
+                <input type="text" class="form-control form-control-lg" id="taskTitle" name="title" 
+                       placeholder="Update your task..." maxlength="200" required value="{{ task[1] }}">
+                <div class="form-text text-white-50">Max 200 characters.</div>
+                <div class="invalid-feedback">
+                    Task title cannot be empty.
+                </div>
+            </div>
+            
+            <div class="row g-3 mb-4">
+                <div class="col-md-6">
+                    <label class="form-label text-white">
+                        <i class="fas fa-star me-2 text-warning"></i>Priority
+                    </label>
+                    <select class="form-select form-select-lg" name="priority">
+                        <option value="low">Low</option>
+                        <option value="medium" selected>Medium</option>
+                        <option value="high">High</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label text-white">
+                        <i class="fas fa-calendar me-2 text-info"></i>Due Date
+                    </label>
+                    <input type="date" class="form-control form-control-lg" name="due_date">
+                </div>
+            </div>
 
-        <a href="/" class="back-link">← Back to Tasks</a>
+            <div class="d-grid gap-3 d-md-flex justify-content-md-between">
+                <button type="submit" class="btn btn-success btn-lg flex-grow-1 me-md-2 mb-2 mb-md-0 py-3">
+                    <i class="fas fa-save me-2"></i>Update Task
+                </button>
+                <a href="/" class="btn btn-outline-light btn-lg px-4">
+                    <i class="fas fa-arrow-left me-2"></i>Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Form validation
+    (function () {
+        'use strict'
+        var form = document.querySelector('.needs-validation');
+        form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+                event.preventDefault()
+                event.stopPropagation()
+            }
+            form.classList.add('was-validated')
+        }, false)
+    })()
+
+    // Character counter
+    const titleInput = document.getElementById('taskTitle');
+    const maxLength = titleInput.maxLength;
+    titleInput.addEventListener('input', function() {
+        const remaining = maxLength - this.value.length;
+        // Could add counter UI here
+    });
+</script>
 {% endblock %}

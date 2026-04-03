@@ -1,67 +1,78 @@
 {% extends "base.html" %}
 
 {% block title %}Add Task - Task Manager{% endblock %}
-
-{% block extra_css %}
-.container {
-    width: 40% !important;
-    margin: 50px auto;
-}
-
-input[type="text"] {
-    width: 90%;
-    padding: 12px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    margin-bottom: 20px;
-    font-size: 16px;
-    outline: none;
-    transition: 0.3s;
-    box-sizing: border-box;
-}
-
-input[type="text"]:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 5px rgba(0,123,255,0.5);
-}
-
-button {
-    padding: 10px 20px;
-    background: #007bff;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: 0.3s;
-    font-size: 16px;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-button:hover {
-    background: #0056b3;
-}
-
-.back-link {
-    display: block;
-    margin-top: 15px;
-    text-decoration: none;
-    color: #555;
-    font-size: 14px;
-}
-
-.back-link:hover {
-    color: #000;
-}
-{% endblock %}
-
-{% block h2 %}➕ Add New Task{% endblock %}
+{% block icon %}plus-circle{% endblock %}
+{% block h2 %}➕ Create New Task{% endblock %}
 
 {% block content %}
-        <form method="POST">
-            <input type="text" name="title" placeholder="Enter task..." required>
-            <button type="submit">Add Task</button>
-        </form>
+<div class="row justify-content-center">
+    <div class="col-lg-8 col-xl-6">
+        <form method="POST" class="needs-validation" novalidate>
+            <div class="mb-4">
+                <label for="taskTitle" class="form-label text-white fs-5">
+                    <i class="fas fa-clipboard-list me-2"></i>Task Title
+                </label>
+                <input type="text" class="form-control form-control-lg" id="taskTitle" name="title" 
+                       placeholder="What needs to be done? e.g., Finish project proposal" 
+                       maxlength="200" required value="{{ request.form.title if request.form else '' }}">
+                <div class="form-text text-white-50">Max 200 characters. Be specific!</div>
+                <div class="invalid-feedback">
+                    Please enter a task title (max 200 chars).
+                </div>
+            </div>
+            
+            <div class="row g-3 mb-4">
+                <div class="col-md-6">
+                    <label class="form-label text-white">
+                        <i class="fas fa-star me-2 text-warning"></i>Priority
+                    </label>
+                    <select class="form-select form-select-lg" name="priority">
+                        <option value="low" selected>Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label text-white">
+                        <i class="fas fa-calendar me-2 text-info"></i>Due Date
+                    </label>
+                    <input type="date" class="form-control form-control-lg" name="due_date">
+                </div>
+            </div>
 
-        <a href="/" class="back-link">← Back to Tasks</a>
+            <button type="submit" class="btn btn-primary-custom btn-lg w-100 mb-4 py-3">
+                <i class="fas fa-plus-circle me-2"></i>Add Task
+            </button>
+        </form>
+        
+        <div class="text-center">
+            <a href="/" class="btn btn-outline-light btn-lg px-4">
+                <i class="fas fa-arrow-left me-2"></i>Back to Tasks
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Form validation
+    (function () {
+        'use strict'
+        var form = document.querySelector('.needs-validation');
+        form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+                event.preventDefault()
+                event.stopPropagation()
+            }
+            form.classList.add('was-validated')
+        }, false)
+    })()
+
+    // Auto-resize textarea simulation for input
+    document.getElementById('taskTitle').addEventListener('input', function() {
+        this.style.height = 'auto';
+        this.style.height = this.scrollHeight + 'px';
+    });
+</script>
 {% endblock %}
