@@ -53,4 +53,4 @@ def edit(id):
     return render_template('edit.html', task=task)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
